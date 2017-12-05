@@ -1,0 +1,36 @@
+# Project: Reminder
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = Reminder_private.res
+OBJ  = main.o lrtimer.o $(RES)
+LINKOBJ  = main.o lrtimer.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -mwindows  
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/include" 
+BIN  = Reminder.exe
+CXXFLAGS = $(CXXINCS)   -O3
+CFLAGS = $(INCS)   -O3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before Reminder.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Reminder.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+lrtimer.o: lrtimer.cpp
+	$(CPP) -c lrtimer.cpp -o lrtimer.o $(CXXFLAGS)
+
+Reminder_private.res: Reminder_private.rc resource.rc 
+	$(WINDRES) -i Reminder_private.rc --input-format=rc -o Reminder_private.res -O coff 
